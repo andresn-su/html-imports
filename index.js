@@ -25,17 +25,20 @@ function importFiles()
     components.forEach(c => {
         let src = c.getAttribute('src');
         let file = src.split('.html').length === 2 ? src : src + ".html";
+
         req.open("GET", file);
         req.responseType = 'text/html';
 
         // Shows the components
         req.onload = () => {
+            // Successful request
             if (req.readyState === req.DONE && req.status == 200) {
                 let div = document.createElement('div');
                 c.parentElement.insertBefore(div, c);
                 div.innerHTML = req.response;
                 c.remove();
                 
+                // Import sub includes and scripts
                 importFiles();
                 loadExtraScripts();
             } else {
