@@ -11,6 +11,22 @@ function loadExtraScripts()
 }
 
 /**
+ * Load data to show in the includes
+ * @param {HTMLElement} c the current 'app-include' tag
+ */
+function loadIncludeData(c)
+{
+    let data = c.getAttributeNames(); // Attributes of 'app-include' tag
+    data.forEach(attr => {
+        if (attr.includes('i-')) // Takes only attributes with 'i-'
+        Array.from(document.querySelectorAll(attr)) // Selectors that match that attribute
+        .forEach(el => {
+            el.textContent = c.getAttribute(attr); // Include data as text content
+        });
+    });
+}
+
+/**
  * Imports HTML components
  * @returns void
  */
@@ -41,6 +57,9 @@ function importFiles()
                 // Import sub includes and scripts
                 importFiles();
                 loadExtraScripts();
+                
+                // Loading all the data
+                loadIncludeData(c);
             } else {
                 console.error("source not found");
             }
