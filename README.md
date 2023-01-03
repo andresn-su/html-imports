@@ -23,3 +23,16 @@ If you open a _script_ tag inside your component, the scripts inside it will not
     console.log('hey!');
 </script>
 ```
+
+#### Passing data to includes
+
+To pass data to your include, add an _i-*_ attribute to the _app-include_ tag and insert in your code a tag with the same name:
+
+```html
+index.html
+<app-include src="src/home" i-title="This is the home page!"></app-include>
+
+src/home.html
+(...)
+<i-title></i-title>
+```
